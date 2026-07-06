@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codex Exporter</title>
+    <style>
+      body {
+        width: 280px;
+        margin: 0;
+        padding: 14px;
+        color: #e8e8e8;
+        background: #202123;
+        font: 13px/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 15px;
+        font-weight: 650;
+      }
+
+      button {
+        width: 100%;
+        min-height: 38px;
+        margin-top: 8px;
+        border: 0;
+        border-radius: 6px;
+        color: #fff;
+        background: #10a37f;
+        font: inherit;
+        font-weight: 650;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        color: #202123;
+        background: #ececf1;
+      }
+
+      button:disabled {
+        cursor: wait;
+        opacity: .6;
+      }
+
+      #status {
+        min-height: 36px;
+        margin-top: 10px;
+        color: #b7b7b7;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Codex JSON Export</h1>
+    <button id="export-auth">Export auth.json</button>
+    <button id="export-bulkadd" class="secondary">Export 9router bulkadd.json</button>
+    <div id="status" role="status"></div>
+    <script src="popup.js"></script>
+  </body>
+</html>

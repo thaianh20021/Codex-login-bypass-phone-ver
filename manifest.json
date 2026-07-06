@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Codex Exporter",
+  "version": "1.0.0",
+  "description": "Export the current ChatGPT session as Codex auth.json or 9router bulkadd JSON.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Export Codex JSON"
+  },
+  "permissions": ["downloads"],
+  "host_permissions": ["https://chatgpt.com/*"]
+}
