@@ -73,6 +73,10 @@ The downloaded JSON contains active session credentials. Treat it like a passwor
 - Remove old exports when you no longer need them.
 - Re-export after logging in again if a token expires.
 
+## Error Check
+
+If Codex shows `Your access token could not be refreshed`, read [TROUBLESHOOTING.md](TROUBLESHOOTING.md). It includes a safe PowerShell check for `%USERPROFILE%\.codex\auth.json` that does not print raw tokens.
+
 ## Support
 
 If this project helps you, you can buy me a coffee with VND or USDT.
