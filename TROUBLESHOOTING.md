@@ -125,3 +125,5 @@ $rt = $j.tokens.refresh_token
 For 9router Bulk Add, the extension output is useful for quick import.
 
 For long-running official Codex OAuth use, prefer an `auth.json` produced by a real Codex OAuth login. A synthetic `idToken` plus placeholder refresh token is not enough for reliable refresh.
+
+if some people have some problem about auth.json, i will rcm using 9router
