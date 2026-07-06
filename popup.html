@@ -6,7 +6,7 @@
     <title>Codex Exporter</title>
     <style>
       body {
-        width: 280px;
+        width: 320px;
         margin: 0;
         padding: 14px;
         color: #e8e8e8;
@@ -49,6 +49,53 @@
         color: #b7b7b7;
         overflow-wrap: anywhere;
       }
+
+      details {
+        margin-top: 10px;
+        border-top: 1px solid #343541;
+        padding-top: 10px;
+      }
+
+      summary {
+        cursor: pointer;
+        font-weight: 650;
+      }
+
+      .donate {
+        display: grid;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .donate-card {
+        border: 1px solid #343541;
+        border-radius: 6px;
+        padding: 10px;
+      }
+
+      .donate-card h2 {
+        margin: 0 0 6px;
+        font-size: 13px;
+      }
+
+      .donate-card p {
+        margin: 3px 0;
+        color: #c5c5d2;
+      }
+
+      .qr {
+        display: block;
+        width: 100%;
+        max-width: 210px;
+        margin: 8px auto 0;
+        border-radius: 6px;
+        background: #fff;
+      }
+
+      code {
+        color: #ececf1;
+        overflow-wrap: anywhere;
+      }
     </style>
   </head>
   <body>
@@ -56,6 +103,24 @@
     <button id="export-auth">Export auth.json</button>
     <button id="export-bulkadd" class="secondary">Export 9router bulkadd.json</button>
     <div id="status" role="status"></div>
+    <details>
+      <summary>Buy me a coffee</summary>
+      <div class="donate">
+        <section class="donate-card">
+          <h2>VND bank transfer</h2>
+          <p>DANG THAI ANH</p>
+          <p>BIDV - PGD Him Lam</p>
+          <p><code>3600607858</code></p>
+          <img class="qr" src="assets/vnd-vietqr.png" alt="VND VietQR for DANG THAI ANH">
+        </section>
+        <section class="donate-card">
+          <h2>USDT</h2>
+          <p>BSC / BEP20</p>
+          <p><code>0x363bf8508d2ec456b5e99c923888cc30ce6f91698</code></p>
+          <img class="qr" src="assets/usdt-bep20-qr.png" alt="USDT BEP20 QR address">
+        </section>
+      </div>
+    </details>
     <script src="popup.js"></script>
   </body>
 </html>

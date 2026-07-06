@@ -73,12 +73,32 @@ The downloaded JSON contains active session credentials. Treat it like a passwor
 - Remove old exports when you no longer need them.
 - Re-export after logging in again if a token expires.
 
+## Support
+
+If this project helps you, you can buy me a coffee with VND or USDT.
+
+### VND
+
+- Name: `DANG THAI ANH`
+- Bank: `BIDV - PGD Him Lam`
+- Account: `3600607858`
+
+![VND VietQR](assets/vnd-vietqr.png)
+
+### USDT
+
+- Network: `BSC / BEP20`
+- Address: `0x363bf8508d2ec456b5e99c923888cc30ce6f91698`
+
+![USDT BEP20 QR](assets/usdt-bep20-qr.png)
+
 ## Files
 
 ```text
 manifest.json  Chrome extension manifest
 popup.html     Extension popup UI
 popup.js       Session fetch, JSON builders, and download logic
+assets/        Donation QR images
 ```
 
 ## Development
