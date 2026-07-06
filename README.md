@@ -48,7 +48,8 @@ Use this with the 9router Codex provider Bulk Add modal:
 5. Click `Load unpacked`.
 6. Select this repository folder.
 7. Log in to `https://chatgpt.com`.
-8. Click the extension icon and choose the export format you need.
+8. Click the extension icon.
+9. Use `Copy 9router Bulk Add` for the fastest 9router import, or download one of the JSON files.
 
 ## How It Works
 
@@ -63,6 +64,7 @@ Then it builds:
 - a synthetic `id_token` with the ChatGPT account id, plan type, user id, email, issue time, and expiry
 - an `auth.json` file for Codex-style tools
 - a 9router-compatible Bulk Add array
+- a one-click clipboard copy of the 9router Bulk Add array
 
 ## Security Notes
 

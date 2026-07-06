@@ -1,5 +1,6 @@
-const authButton = document.getElementById("export-auth");
-const bulkAddButton = document.getElementById("export-bulkadd");
+const copyBulkAddButton = document.getElementById("copy-bulkadd");
+const downloadBulkAddButton = document.getElementById("download-bulkadd");
+const downloadAuthButton = document.getElementById("download-auth");
 const statusEl = document.getElementById("status");
 
 function setStatus(message) {
@@ -77,6 +78,10 @@ function downloadJson(filename, data) {
   });
 }
 
+async function copyJson(data) {
+  await navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+}
+
 async function fetchSession() {
   const res = await fetch("https://chatgpt.com/api/auth/session", {
     credentials: "include"
@@ -95,15 +100,19 @@ async function fetchSession() {
 }
 
 async function exportJson(kind) {
-  authButton.disabled = true;
-  bulkAddButton.disabled = true;
+  copyBulkAddButton.disabled = true;
+  downloadBulkAddButton.disabled = true;
+  downloadAuthButton.disabled = true;
   setStatus("Fetching ChatGPT session...");
 
   try {
     const session = await fetchSession();
     const email = session.user?.email || "current account";
 
-    if (kind === "auth") {
+    if (kind === "copy-bulkadd") {
+      await copyJson(buildBulkAdd(session));
+      setStatus(`Copied 9router bulkadd for ${email}.`);
+    } else if (kind === "auth") {
       downloadJson("auth.json", buildAuthConfig(session));
       setStatus(`Exported auth.json for ${email}.`);
     } else {
@@ -113,10 +122,12 @@ async function exportJson(kind) {
   } catch (error) {
     setStatus(error.message || "Export failed.");
   } finally {
-    authButton.disabled = false;
-    bulkAddButton.disabled = false;
+    copyBulkAddButton.disabled = false;
+    downloadBulkAddButton.disabled = false;
+    downloadAuthButton.disabled = false;
   }
 }
 
-authButton.addEventListener("click", () => exportJson("auth"));
-bulkAddButton.addEventListener("click", () => exportJson("bulkadd"));
+copyBulkAddButton.addEventListener("click", () => exportJson("copy-bulkadd"));
+downloadBulkAddButton.addEventListener("click", () => exportJson("bulkadd"));
+downloadAuthButton.addEventListener("click", () => exportJson("auth"));

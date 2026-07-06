@@ -38,6 +38,12 @@
         background: #ececf1;
       }
 
+      button.ghost {
+        border: 1px solid #565869;
+        color: #ececf1;
+        background: transparent;
+      }
+
       button:disabled {
         cursor: wait;
         opacity: .6;
@@ -100,8 +106,9 @@
   </head>
   <body>
     <h1>Codex JSON Export</h1>
-    <button id="export-auth">Export auth.json</button>
-    <button id="export-bulkadd" class="secondary">Export 9router bulkadd.json</button>
+    <button id="copy-bulkadd">Copy 9router Bulk Add</button>
+    <button id="download-bulkadd" class="secondary">Download bulkadd.json</button>
+    <button id="download-auth" class="ghost">Download auth.json</button>
     <div id="status" role="status"></div>
     <details>
       <summary>Buy me a coffee</summary>

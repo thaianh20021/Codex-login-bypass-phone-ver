@@ -7,6 +7,6 @@
     "default_popup": "popup.html",
     "default_title": "Export Codex JSON"
   },
-  "permissions": ["downloads"],
+  "permissions": ["clipboardWrite", "downloads"],
   "host_permissions": ["https://chatgpt.com/*"]
 }
