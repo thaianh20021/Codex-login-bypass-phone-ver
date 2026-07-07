@@ -49,6 +49,33 @@
         opacity: .6;
       }
 
+      label {
+        display: block;
+        margin-top: 12px;
+        color: #c5c5d2;
+        font-weight: 650;
+      }
+
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 116px;
+        margin-top: 8px;
+        padding: 9px;
+        border: 1px solid #565869;
+        border-radius: 6px;
+        color: #ececf1;
+        background: #171719;
+        font: 12px/1.4 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+        resize: vertical;
+      }
+
+      .button-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
       #status {
         min-height: 36px;
         margin-top: 10px;
@@ -109,6 +136,12 @@
     <button id="copy-bulkadd">Copy 9router Bulk Add</button>
     <button id="download-bulkadd" class="secondary">Download bulkadd.json</button>
     <button id="download-auth" class="ghost">Download auth.json</button>
+    <label for="convert-json">Convert Sub2API / CPA / auth.json</label>
+    <textarea id="convert-json" spellcheck="false" placeholder="Paste JSON here"></textarea>
+    <div class="button-row">
+      <button id="copy-converted" class="secondary">Copy converted</button>
+      <button id="download-converted" class="ghost">Download</button>
+    </div>
     <div id="status" role="status"></div>
     <details>
       <summary>Buy me a coffee</summary>
@@ -128,6 +161,7 @@
         </section>
       </div>
     </details>
+    <script src="converter.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

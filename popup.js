@@ -1,46 +1,30 @@
 const copyBulkAddButton = document.getElementById("copy-bulkadd");
 const downloadBulkAddButton = document.getElementById("download-bulkadd");
 const downloadAuthButton = document.getElementById("download-auth");
+const convertJsonInput = document.getElementById("convert-json");
+const copyConvertedButton = document.getElementById("copy-converted");
+const downloadConvertedButton = document.getElementById("download-converted");
 const statusEl = document.getElementById("status");
+const buttons = [
+  copyBulkAddButton,
+  downloadBulkAddButton,
+  downloadAuthButton,
+  copyConvertedButton,
+  downloadConvertedButton
+];
 
 function setStatus(message) {
   statusEl.textContent = message;
 }
 
-function base64UrlEncode(obj) {
-  const bytes = new TextEncoder().encode(JSON.stringify(obj));
-  let binary = "";
-  bytes.forEach((byte) => {
-    binary += String.fromCharCode(byte);
-  });
-
-  return btoa(binary).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
-}
-
 function buildSyntheticIdToken(session) {
-  const accountId = session.account?.id || "";
-  const userId = session.user?.id || "";
-  const planType = session.account?.planType || "free";
-  const email = session.user?.email || "";
-  const iat = Math.floor(Date.now() / 1000);
-  const exp = session.expires
-    ? Math.floor(new Date(session.expires).getTime() / 1000)
-    : iat + 30 * 24 * 3600;
-
-  const header = { alg: "none", typ: "JWT", cpa_synthetic: true };
-  const payload = {
-    iat,
-    exp,
-    "https://api.openai.com/auth": {
-      chatgpt_account_id: accountId,
-      chatgpt_plan_type: planType,
-      chatgpt_user_id: userId,
-      user_id: userId
-    },
-    email
-  };
-
-  return `${base64UrlEncode(header)}.${base64UrlEncode(payload)}.synthetic`;
+  return bulkAddConverter.buildSyntheticIdToken({
+    accountId: session.account?.id || "",
+    userId: session.user?.id || "",
+    planType: session.account?.planType || "free",
+    email: session.user?.email || "",
+    exp: session.expires
+  });
 }
 
 function buildAuthConfig(session) {
@@ -82,6 +66,20 @@ async function copyJson(data) {
   await navigator.clipboard.writeText(JSON.stringify(data, null, 2));
 }
 
+function setBusy(isBusy) {
+  buttons.forEach((button) => {
+    button.disabled = isBusy;
+  });
+}
+
+function convertedBulkAddFromInput() {
+  const input = convertJsonInput.value.trim();
+  if (!input) {
+    throw new Error("Paste JSON to convert first.");
+  }
+  return bulkAddConverter.convertToBulkAdd(input);
+}
+
 async function fetchSession() {
   const res = await fetch("https://chatgpt.com/api/auth/session", {
     credentials: "include"
@@ -100,9 +98,7 @@ async function fetchSession() {
 }
 
 async function exportJson(kind) {
-  copyBulkAddButton.disabled = true;
-  downloadBulkAddButton.disabled = true;
-  downloadAuthButton.disabled = true;
+  setBusy(true);
   setStatus("Fetching ChatGPT session...");
 
   try {
@@ -122,12 +118,31 @@ async function exportJson(kind) {
   } catch (error) {
     setStatus(error.message || "Export failed.");
   } finally {
-    copyBulkAddButton.disabled = false;
-    downloadBulkAddButton.disabled = false;
-    downloadAuthButton.disabled = false;
+    setBusy(false);
+  }
+}
+
+async function convertJson(kind) {
+  setBusy(true);
+
+  try {
+    const bulkAdd = convertedBulkAddFromInput();
+    if (kind === "copy") {
+      await copyJson(bulkAdd);
+      setStatus(`Copied ${bulkAdd.length} converted account(s).`);
+    } else {
+      downloadJson("9router-codex-bulkadd-converted.json", bulkAdd);
+      setStatus(`Exported ${bulkAdd.length} converted account(s).`);
+    }
+  } catch (error) {
+    setStatus(error.message || "Convert failed.");
+  } finally {
+    setBusy(false);
   }
 }
 
 copyBulkAddButton.addEventListener("click", () => exportJson("copy-bulkadd"));
 downloadBulkAddButton.addEventListener("click", () => exportJson("bulkadd"));
 downloadAuthButton.addEventListener("click", () => exportJson("auth"));
+copyConvertedButton.addEventListener("click", () => convertJson("copy"));
+downloadConvertedButton.addEventListener("click", () => convertJson("download"));

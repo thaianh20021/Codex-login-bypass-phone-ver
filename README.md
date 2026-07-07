@@ -50,6 +50,7 @@ Use this with the 9router Codex provider Bulk Add modal:
 7. Log in to `https://chatgpt.com`.
 8. Click the extension icon.
 9. Use `Copy 9router Bulk Add` for the fastest 9router import, or download one of the JSON files.
+10. To convert an existing export, paste Sub2API, CPA, or `auth.json` into the converter box and copy/download the converted Bulk Add JSON.
 
 ## How It Works
 
@@ -65,6 +66,16 @@ Then it builds:
 - an `auth.json` file for Codex-style tools
 - a 9router-compatible Bulk Add array
 - a one-click clipboard copy of the 9router Bulk Add array
+
+## Convert Existing Exports
+
+The popup can convert these formats into one 9router Bulk Add array:
+
+- Sub2API exports with `accounts[].credentials`
+- CPA or portable exports with `access_token`, `refresh_token`, `id_token`, and `email`
+- Codex `auth.json` with a `tokens` object
+
+Paste the JSON, then choose `Copy converted` or `Download`.
 
 ## Security Notes
 
@@ -104,9 +115,16 @@ If this project helps you, you can buy me a coffee with VND or USDT.
 manifest.json  Chrome extension manifest
 popup.html     Extension popup UI
 popup.js       Session fetch, JSON builders, and download logic
+converter.js   Sub2API / CPA / auth.json to Bulk Add converter
 assets/        Donation QR images
 ```
 
 ## Development
 
 This project has no build step and no dependencies. Edit the files, then reload the extension from `chrome://extensions`.
+
+Run the converter self-check with:
+
+```bash
+node checks/converter-self-check.mjs
+```
